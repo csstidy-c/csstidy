@@ -522,4 +522,11 @@ void prepare()
 	at_rules["import"] = iv;
 	at_rules["namespace"] = iv;
 	at_rules["media"] = at;
+	at_rules["keyframes"] = at;
+	at_rules["-moz-keyframes"] = at;
+	at_rules["-ms-keyframes"] = at;
+	// MS actually went prefixless in the final version of IE10,
+	// but supports the prefix for backwards compatibility.
+	at_rules["-o-keyframes"] = at;
+	at_rules["-webkit-keyframes"] = at;
 }
