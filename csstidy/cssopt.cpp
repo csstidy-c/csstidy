@@ -94,8 +94,11 @@ string compress_numbers(string subvalue, string property, string function)
 		
 	for (int i = 0; i < temp.size(); ++i)
 	{
-		if(!(temp[i].length() > 0 && (ctype_digit(temp[i][0]) || temp[i][0] == '+' || temp[i][0] == '-' ) ))
+		if(!(temp[i].length() > 0 && (ctype_digit(temp[i][0])) ||
+		     temp[i].length() > 1 && (ctype_digit(temp[i][1])) && (temp[i][0] == '+' || temp[i][0] == '-' )))
 		{
+			// As temp[i] does not begin with a digit
+			// (optionally preceded by a plus or minus sign), make no changes to it.
 			continue;
 		}
 		
