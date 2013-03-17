@@ -32,7 +32,7 @@ class csstidy
 	private:
 		css_struct    css;
 		vector<token> csstokens;
-		string        tokens, cur_selector, cur_at, cur_property, cur_sub_value, cur_value, cur_string;
+		string        tokens, cur_selector, cur_at, cur_property, cur_function, cur_sub_value, cur_value, cur_string;
 		int           line;
 		vector<int>   sel_separate;
 
@@ -43,8 +43,8 @@ class csstidy
 		void log(const string msg, const message_type type, int iline = 0);
 		
 		int _seeknocomment(const int key, const int move);
-		string _htmlsp(const string istring, const bool plain);	
-		string optimise_subvalue(string subvalue, const string property);
+		string _htmlsp(const string istring, const bool plain);
+		string optimise_subvalue(string subvalue, const string property, const string function);
 		void explode_selectors();
 		
 		// Parses unicode notations

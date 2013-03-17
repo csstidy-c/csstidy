@@ -27,7 +27,7 @@ string cut_color(string color);
 string shorthand(string value);
 
 // Compresses numbers (ie. 1.0 -> 1 or 1.100 -> 1.1 
-string compress_numbers(string subvalue, string property = "");
+string compress_numbers(string subvalue, string property = "", string function = "");
 
 // Checks if the next word in a string from pos is a CSS property
 bool property_is_next(string istring, const int pos);

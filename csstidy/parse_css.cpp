@@ -40,10 +40,12 @@ void csstidy::parse_css(string css_input)
 	css_input += "\n";
 	parse_status status = is, from;
 	cur_property = "";
+	cur_function = "";
 
 	string temp_add,cur_comment,temp;
 
 	vector<string> cur_sub_value_arr;
+	vector<string> cur_function_arr; // Stack of nested function calls
 	char str_char;
 	bool str_in_str = false;
 	bool invalid_at = false;
@@ -241,12 +243,28 @@ void csstidy::parse_css(string css_input)
 					status = ic; ++i;
 					from = iv;
 				}
-				else if(css_input[i] == '"' || css_input[i] == '\'' || css_input[i] == '(')
+				else if(css_input[i] == '"' || css_input[i] == '\'' ||
+				        (css_input[i] == '(' && cur_sub_value == "url") )
 				{
 					str_char = (css_input[i] == '(') ? ')' : css_input[i];
 					cur_string = css_input[i];
 					status = instr;
 					from = iv;
+				}
+				else if(css_input[i] == '(')
+				{
+					// function call or an open parenthesis in a calc() expression
+
+					// url() is a special case that should have been handled above
+					assert(cur_sub_value != "url");
+					
+					// cur_sub_value should contain the name of the function, if any
+					cur_sub_value = trim(cur_sub_value + "(");
+					// set current function name and push it onto the stack
+					cur_function = cur_sub_value;
+					cur_function_arr.push_back(cur_sub_value);
+					cur_sub_value_arr.push_back(cur_sub_value);
+					cur_sub_value = "";
 				}
 				else if(css_input[i] == '\\')
 				{
@@ -261,7 +279,7 @@ void csstidy::parse_css(string css_input)
 
 						if(cur_selector == "@charset") charset = cur_sub_value_arr[0];
 						if(cur_selector == "@namespace") namesp = implode(" ",cur_sub_value_arr);
-						if(cur_selector == "@import") import.push_back(implode(" ",cur_sub_value_arr));
+						if(cur_selector == "@import") import.push_back(build_value(cur_sub_value_arr));
 
 						cur_sub_value_arr.clear();
 						cur_sub_value = "";
@@ -274,9 +292,41 @@ void csstidy::parse_css(string css_input)
 					}
 				}
 				else if (css_input[i] == '!') {
-					cur_sub_value = optimise_subvalue(cur_sub_value,cur_property);
+					cur_sub_value = optimise_subvalue(cur_sub_value,cur_property,cur_function);
+					// TODO: can '!' appear inside a function?
 					cur_sub_value_arr.push_back(trim(cur_sub_value));
 					cur_sub_value = "!";
+				}
+				else if (css_input[i] == ',' || css_input[i] == ')') 
+				{
+					// optimise and store the current subvalue, if any
+					cur_sub_value = trim(cur_sub_value);
+					if(cur_sub_value != "")
+					{
+						cur_sub_value = optimise_subvalue(cur_sub_value, cur_property, cur_function);
+						cur_sub_value_arr.push_back(cur_sub_value);
+						cur_sub_value = "";
+					}
+					bool drop = false;
+					if (css_input[i] == ')')
+					{
+						if (cur_function_arr.empty())
+						{
+							// No matching open parenthesis, drop this closing one
+							log("Unexpected closing parenthesis, dropping", Warning);
+							drop = true;
+						}
+						else
+						{
+							// Pop function from the stack
+							cur_function_arr.pop_back();
+							cur_function = cur_function_arr.empty() ? "" : cur_function_arr.back();
+							
+						}
+					}
+					if (!drop) {
+						cur_sub_value_arr.push_back(string(1,css_input[i]));
+					}
 				}
 				else if(css_input[i] != '}')
 				{
@@ -284,6 +334,8 @@ void csstidy::parse_css(string css_input)
 				}
 				if( (css_input[i] == '}' || css_input[i] == ';' || pn) && !cur_selector.empty())
 				{
+					// End of value: normalize, optimize and store property
+					
 					++properties;
 
 					if(cur_at == "")
@@ -303,15 +355,25 @@ void csstidy::parse_css(string css_input)
 					}
 					cur_property = strtolower(cur_property);
 
-
 					if(cur_sub_value != "")
 					{
-						cur_sub_value = optimise_subvalue(cur_sub_value,cur_property);
+						cur_sub_value = optimise_subvalue(cur_sub_value,cur_property,cur_function);
 						cur_sub_value_arr.push_back(cur_sub_value);
 						cur_sub_value = "";
 					}
 
-					cur_value = implode(" ",cur_sub_value_arr);
+					// Check for leftover open parentheses
+					if (!cur_function_arr.empty())
+					{
+						std::vector<string>::reverse_iterator rit;
+						for (rit = cur_function_arr.rbegin(); rit != cur_function_arr.rend(); ++rit)
+						{
+							log("Closing parenthesis missing for '" + *rit + "', inserting", Warning);
+							cur_sub_value_arr.push_back(")");
+						}
+					}
+
+					cur_value = build_value(cur_sub_value_arr);
 
 					// Compress !important
 					temp = c_important(cur_value);
@@ -409,7 +471,7 @@ void csstidy::parse_css(string css_input)
 				{
 					if(trim(cur_sub_value) != "")
 					{
-						cur_sub_value = optimise_subvalue(cur_sub_value,cur_property);
+						cur_sub_value = optimise_subvalue(cur_sub_value, cur_property, cur_function);
 						cur_sub_value_arr.push_back(trim(cur_sub_value));
 					}
 					cur_sub_value = "";
@@ -439,8 +501,14 @@ void csstidy::parse_css(string css_input)
 			if(css_input[i] == str_char && !escaped(css_input,i) && str_in_str == false)
 			{
 				status = from;
-				if (cur_string.find_first_of(" \n\t\r\0xb") == string::npos && cur_property != "content" && cur_sub_value != "format") {
+				if (cur_function == "" && cur_string.find_first_of(" \n\t\r\0xb") == string::npos && cur_property != "content" && cur_sub_value != "format") {
+					// If the string is not inside a function call, contains no whitespace, 
+					// and the current property is not 'content', it may be safe to remove quotes.
+					// TODO: Are there any properties other than 'content' where this is unsafe?
+					// TODO: What if the string contains a comma or slash, and the property is a list or shorthand?
 					if (str_char == '"' || str_char == '\'') {
+						// If the string is in double or single quotes, remove them
+						// FIXME: once url() is handled separately, this may always be the case.
 						cur_string = cur_string.substr(1, cur_string.length() - 2);
 					} else if (cur_string.length() > 3 && (cur_string[1] == '"' || cur_string[1] == '\'')) /* () */ {
 						cur_string = cur_string[0] + cur_string.substr(2, cur_string.length() - 4) + cur_string[cur_string.length()-1];
@@ -504,11 +572,11 @@ void csstidy::parse_css(string css_input)
 	}
 }
 
-string csstidy::optimise_subvalue(string subvalue, const string property)
+string csstidy::optimise_subvalue(string subvalue, const string property, const string function)
 {
 	subvalue = trim(subvalue);
 
-	string temp = compress_numbers(subvalue,property);
+	string temp = compress_numbers(subvalue,property,function);
 	if(temp != subvalue)
 	{
 		if(temp.length() > subvalue.length())

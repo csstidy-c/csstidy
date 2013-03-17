@@ -77,7 +77,7 @@ string shorthand(string value)
 	}
 }
 
-string compress_numbers(string subvalue, string property)
+string compress_numbers(string subvalue, string property, string function)
 {
 	string units[] = {"in", "cm", "mm", "pt", "pc", "px", "rem", "%", "ex", "gd", "em", "vw", "vh",
 	                  "vm", "ch", "deg", "grad", "rad", "turn", "ms", "s", "khz", "hz" }; // sync  for loop
@@ -99,9 +99,10 @@ string compress_numbers(string subvalue, string property)
 			continue;
 		}
 		
-		if(in_str_array(color_values,property))
+		if(function == "" && in_str_array(color_values,property))
 		{
 			temp[i] = "#" + temp[i];
+			//csstidy::log("Inserting missing '#'", Warning); // FIXME: Make log() a static method
 		}
 	
 		if(str2f(temp[i]) == 0)
@@ -121,10 +122,11 @@ string compress_numbers(string subvalue, string property)
 					break;
 				}
 			}
-			if(!unit_found && in_str_array(unit_values,property))
+			if(function == "" && !unit_found && in_str_array(unit_values,property))
 			{
 				temp[i] = f2str(str2f(temp[i]));
 				temp[i] += "px";
+				//csstidy::log("Unit required, inserting 'px'", Warning); // FIXME: Make log() a static method
 			}
 			else if(!unit_found)
 			{

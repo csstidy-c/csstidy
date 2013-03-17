@@ -71,6 +71,27 @@ string implode(const string e,const vector<string> s)
 	return ret;
 }
 
+string build_value(const vector<string> subvalues)
+{
+	string ret;
+	for(int i = 0; i < subvalues.size(); i++)
+	{
+		ret += subvalues[i];
+		if(i != (subvalues.size()-1))
+		{
+			char last = s_at(subvalues[i], subvalues[i].length()-1);
+			char next = s_at(subvalues[i+1], 0);
+			if (strchr("(,=:", last) != NULL || strchr("),=:", next) != NULL)
+			{
+				continue;
+			}
+			ret += " ";
+		}
+	}
+	return ret;
+}
+
+
 float round(const float &number, const int num_digits)
 {
     float doComplete5i, doComplete5(number * powf(10.0f, (float) (num_digits + 1)));

@@ -32,6 +32,9 @@ vector<string> explode(const string e, string s, const bool check = false);
 // Implodes a string at e
 std::string implode(const string e, const vector<string> s);
 
+// Builds a compact value string, inserting spaces only where necessary
+std::string build_value(const vector<string> subvalues);
+
 // Replaces <find> with <replace> in <str>
 string str_replace(const string find, const string replace, string str);
 
