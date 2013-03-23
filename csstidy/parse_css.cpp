@@ -222,11 +222,31 @@ void csstidy::parse_css(string css_input)
 				{
 					cur_property += unicode(css_input,i);
 				}
+				else if(css_input[i] == '*') 
+				{
+					// IE7 and below recognize properties that begin with '*'
+					if (cur_property == "")
+					{
+						cur_property += css_input[i];
+						log("IE7- hack detected: property name begins with '*'", Warning);
+					} 
+				}
+				else
+				{
+					log("Unexpected character '" + string(1, css_input[i]) + "'in property name", Error);
+				}
 			}
 			else if(!ctype_space(css_input[i]))
 			{
+				if(css_input[i] == '_' && cur_property == "")
+				{
+					// IE6 and below recognize properties that begin with '_'
+					log("IE6 hack detected: property name begins with '_'", Warning);
+				}
+				// TODO: Check for invalid characters
 				cur_property += css_input[i];
 			}
+			// TODO: Check for whitespace inside property names
 			break;
 
 			/* Case in-value */
