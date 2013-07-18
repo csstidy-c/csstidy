@@ -85,11 +85,17 @@ void csstidy::parse_css(string css_input)
 				}
 				else /*if((css_input[i] == '(') || (css_input[i] == ':') || (css_input[i] == ')') || (css_input[i] == '.'))*/
 				{
+					if(!in_char_arr("():/.", css_input[i]))
+					{
+						// Strictly speaking, these are only permitted in @media rules 
+						log("Unexpected symbol '" + string(css_input, i, 1) + "' in @-rule", Warning);
+					}
 					cur_at += css_input[i];  /* append tokens after media selector */
 				}
 			}
 			else
 			{
+				// Skip excess whitespace
 				int lastpos = cur_at.length()-1;
 				if(lastpos == -1 || !( (ctype_space(cur_at[lastpos]) || is_token(cur_at,lastpos) && cur_at[lastpos] == ',') && ctype_space(css_input[i])))
 				{
