@@ -603,7 +603,7 @@ string csstidy::optimise_subvalue(string subvalue, const string property, const 
 	subvalue = trim(subvalue);
 
 	string temp = compress_numbers(subvalue,property,function);
-	if(temp != subvalue)
+	if(temp != subvalue && settings["optimise_numbers"])
 	{
 		if(temp.length() > subvalue.length())
 		{
