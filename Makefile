@@ -1,4 +1,4 @@
-name=csstidy-c
+name=csstidy
 WORKINGDIR=$(shell pwd)
 DIRNAME=$(shell basename `pwd`)
 #VERSION=$(shell basename `pwd` |sed 's,$(name)-,,')
@@ -68,7 +68,7 @@ CSSTIDYOBJS= \
 .cpp.o:
 	$(CXX) -o $(RELEASE_DIR)/$@ -c $(CFLAGS) $<
 
-.PHONY: clean
+.PHONY: clean savets restorets ci pull
 
 all: releasedir $(CSSTIDYOBJS)
 	cd $(RELEASE_DIR); $(CXX) $(LDCFLAGS) -o csstidy/csstidy $(CSSTIDYOBJS)
@@ -77,7 +77,7 @@ releasedir:
 	mkdir -p $(RELEASE_DIR)/csstidy
 
 clean::
-	$(RM) -rf $(RELEASE_DIR)/*
+	$(RM) -rf $(RELEASE_DIR)/* $(RELEASE_DIR)
  
 distclean: clean
 	#$(MAKE) savets
@@ -88,9 +88,6 @@ mangz:
 	  gzip -9 -f <$$f >$$f.gz; \
 	  touch -r $$f $$f.gz; \
 	done
-
-desc:
-	@for f in $(MANPAGES);do head -3 $$f|tail -1;done|sed 's,\\,,'
 
 dist: tgz
 
@@ -130,8 +127,15 @@ manhtml:
 manhtml-clean:
 	$(RM) -f */*.[18].html
 
+ci: savets
+	read -p 'comment for commit: ' comment && git commit -am "$$comment" && git push
+
+pull:
+	git pull
+	$(MAKE) restorets
+
 savets: distclean
-	find . -type f -o -type d|egrep -v "\.svn\/|\.svn$$|\.git$|\.git\/"|grep -v "\.timestamps"|sort|while read f;do echo $$(date +%s -r "$$f") "$$f";done >.timestamps
+	find . -type f -o -type d|egrep -v "\.svn\/|\.svn$$|\/\.git\/|\/\.git$$"|grep -v "\.timestamps"|sort|while read f;do echo $$(date +%s -r "$$f") "$$f";done >.timestamps;true
 
 restorets:
-	while read ts f;do touch -d@$$ts "$$f";done<.timestamps
+	while read ts f;do test -e "$$f" && touch -d@$$ts "$$f";done<.timestamps;true
