@@ -80,6 +80,10 @@ void csstidy::parse_css(string css_input)
 				{
 					cur_at += unicode(css_input,i);
 				}
+				else /*if((css_input[i] == '(') || (css_input[i] == ':') || (css_input[i] == ')') || (css_input[i] == '.'))*/
+				{
+					cur_at += css_input[i];  /* append tokens after media selector */
+				}
 			}
 			else
 			{
