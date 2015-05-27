@@ -43,6 +43,7 @@ csstidy::csstidy()
 	settings["allow_html_in_templates"] = 0;
 	settings["silent"] = 0;
 	settings["preserve_css"] = 0;
+	settings["strip_all_comments"] = 0;
 	settings["timestamp"] = 0;
 	
 	csstemplate.push_back("<span class=\"at\">"); //string before @rule
@@ -63,6 +64,7 @@ csstidy::csstidy()
 	
 void csstidy::add_token(const token_type ttype, const string data, const bool force)
 {
+	if(settings["strip_all_comments"] && (ttype == COMMENT)) return;
 	if(settings["preserve_css"] || force) {
 		token temp;
 		temp.type = ttype;
