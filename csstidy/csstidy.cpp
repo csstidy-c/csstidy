@@ -27,7 +27,7 @@ csstidy::csstidy()
 	namesp = "";
 	line = 1;
 	tokens = "{};:()@='\"/,\\!$%&*+.<>?[]^`|~";
-	css_level = "CSS2.1";
+	css_level = "CSS3.0";
 	
 	settings["remove_bslash"] = 1;
 	settings["compress_colors"] = 1;
