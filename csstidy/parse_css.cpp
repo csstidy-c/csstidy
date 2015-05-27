@@ -99,7 +99,8 @@ void csstidy::parse_css(string css_input)
 			case is:
 			if(is_token(css_input,i))
 			{
-				if(css_input[i] == '/' && s_at(css_input,i+1) == '*' && trim(cur_selector) == "")
+				/*if(css_input[i] == '/' && s_at(css_input,i+1) == '*' && trim(cur_selector) == "") selector as dep doesn't make any sense here, huh? */
+				if(css_input[i] == '/' && s_at(css_input,i+1) == '*')
 				{
 					status = ic; ++i;
 					from = is;
