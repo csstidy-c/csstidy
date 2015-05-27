@@ -75,6 +75,11 @@ If set to true, all uppercase selectors (i.e. A, P, SPAN) will be rewritten in l
 All comments and most browser specific hacks will be removed if this is set to false. Setting this to true will preserve browser specific hacks. Default = false.
 .RE
 .PP
+\-\-strip_all_comments=[false|true]
+.RS 4
+Strip all comments even left on preserve_css set to true. Default = false.
+.RE
+.PP
 \-\-remove_bslash=[true|false]
 .RS 4
 Remove unnecessary backslashes. This may or may not be desirable depending upon whether you have used backslashes to accomodate browsers that do not comply with w3c standards. Default = true.
@@ -107,7 +112,7 @@ If set to true, adds a comment enclosed timestamp to the top of the output. Defa
 .PP
 \-\-merge_selectors=[2|1|0]
 .RS 4
-If selectors (including ID's and classes) have identical properties, then csstidy will merge them. A setting of 2 represents a high degree of merging. 0 represents no merging. Default = 2.
+If selectors (including ID's and classes) have identical properties, then csstidy will merge them. A setting of 2 represents merging, 1 won't merge and 0 means no change of already existing merges. Default = 2.
 .RE
 .PP
 \-\-optimise_shorthands=[1|2|0]
@@ -139,7 +144,8 @@ _property:value
 .fi
 .RE
 .SH "AUTHOR"
-Written by Florian Schmitz <floele@gmail.com>
+Written by Florian Schmitz <floele@gmail.com>,
+corrections by Frank W. Bergmann
 .sp
 .SH "RESOURCES"
 Main web site: \fIhttp://csstidy.sourceforge.net/\fR
