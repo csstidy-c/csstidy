@@ -47,14 +47,14 @@ Build=2232
 LanguageID=2057
 CharsetID=1252
 CompanyName=
-FileVersion=1.3
+FileVersion=1.4
 FileDescription=CSS Parser and Optimiser
 InternalName=
 LegalCopyright=
 LegalTrademarks=
 OriginalFilename=
 ProductName=CSSTidy
-ProductVersion=1.3
+ProductVersion=1.4
 AutoIncBuildNr=1
 
 [Unit2]
