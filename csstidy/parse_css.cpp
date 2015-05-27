@@ -438,7 +438,7 @@ void csstidy::parse_css(string css_input)
 			if(css_input[i] == str_char && !escaped(css_input,i) && str_in_str == false)
 			{
 				status = from;
-				if (cur_string.find_first_of(" \n\t\r\0xb") == string::npos && cur_property != "content") {
+				if (cur_string.find_first_of(" \n\t\r\0xb") == string::npos && cur_property != "content" && cur_sub_value != "format") {
 					if (str_char == '"' || str_char == '\'') {
 						cur_string = cur_string.substr(1, cur_string.length() - 2);
 					} else if (cur_string.length() > 3 && (cur_string[1] == '"' || cur_string[1] == '\'')) /* () */ {
