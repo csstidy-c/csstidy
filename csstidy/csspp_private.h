@@ -5,11 +5,11 @@
 #define CSSPP_PRIVATE_H
 
 /* VERSION DEFINITIONS */
-#define VER_STRING	"1.4.0.0"
+#define VER_STRING	"1.4.1.1"
 #define VER_MAJOR	1
-#define VER_MINOR	3
-#define VER_RELEASE	0
-#define VER_BUILD	2232
+#define VER_MINOR	4
+#define VER_RELEASE	1
+#define VER_BUILD	1
 #define COMPANY_NAME	""
 #define FILE_VERSION	"1.4"
 #define FILE_DESCRIPTION	"CSS Parser and Optimiser"
