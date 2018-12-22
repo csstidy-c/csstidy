@@ -25,7 +25,7 @@ BEGIN
             VALUE "FileDescription", "CSSTidy command line executable"
             VALUE "FileVersion", "1, 0, 0, 1"
             VALUE "InternalName", "csstidy.exe"
-            VALUE "LegalCopyright", "Copyright (C) 2005-2006 by Florian Schmitz under the GPL"
+            VALUE "LegalCopyright", "Copyright (C) 2005-2007 by Florian Schmitz under the LGPL"
             VALUE "OriginalFilename", "csstidy.exe"
             VALUE "ProductName", " CSSTidy"
             VALUE "ProductVersion", "1, 0, 0, 1"
