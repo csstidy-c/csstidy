@@ -339,6 +339,7 @@ void prepare()
 	all_properties["float-offset"] = "CSS3.0";
 	all_properties["font"] = "CSS1.0,CSS2.0,CSS2.1,CSS3.0";
 	all_properties["font-family"] = "CSS1.0,CSS2.0,CSS2.1,CSS3.0";
+	all_properties["font-format"] = "CSS3.0";
 	all_properties["font-size"] = "CSS1.0,CSS2.0,CSS2.1,CSS3.0";
 	all_properties["font-size-adjust"] = "CSS2.0,CSS3.0";
 	all_properties["font-stretch"] = "CSS2.0,CSS3.0";
@@ -505,6 +506,7 @@ void prepare()
 	all_properties["word-spacing"] = "CSS1.0,CSS2.0,CSS2.1,CSS3.0";
 	all_properties["word-wrap"] = "CSS3.0";
 	all_properties["z-index"] = "CSS2.0,CSS2.1,CSS3.0";
+	all_properties["zoom"] = "CSS3.0";
 
 
 	background_prop_default["background-image"] = "none";
