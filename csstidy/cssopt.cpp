@@ -79,7 +79,7 @@ string shorthand(string value)
 string compress_numbers(string subvalue, string property)
 {
 	string units[] = {"in", "cm", "mm", "pt", "pc", "px", "rem", "%", "ex", "gd", "em", "vw", "vh",
-	                  "vm", "deg", "grad", "rad", "ms", "s", "khz", "hz" }; // sync  for loop
+	                  "vm", "ch", "deg", "grad", "rad", "turn", "ms", "s", "khz", "hz" }; // sync  for loop
 	           
 	vector<string> temp;
 	if(property == "font")
