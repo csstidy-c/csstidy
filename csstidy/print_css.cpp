@@ -78,8 +78,7 @@ void csstidy::print_css(string filename)
 {
 	if(css.empty() && charset == "" && namesp == "" && import.empty() && csstokens.empty())
 	{
-		if(!settings["silent"]) cout << "Invalid CSS!" << endl;
-		return;
+		if(!settings["silent"]) cout << "Warning: empty CSS output!" << endl;
 	}
 
 	ofstream file_output;
@@ -164,7 +163,7 @@ void csstidy::print_css(string filename)
 
             case VALUE:
                 *out << _htmlsp(csstokens[i].data, plain);
-                if(_seeknocomment(i, 1) == SEL_END && settings["remove_last_;"]) {
+                if(_seeknocomment(i, 1) == SEL_END && settings["remove_last_semicolon"]) {
                     *out << str_replace(";", "", csstemplate[6]);
                 } else {
                     *out << csstemplate[6];
