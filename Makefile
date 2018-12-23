@@ -4,6 +4,8 @@ DIRNAME=$(shell basename `pwd`)
 #VERSION=$(shell basename `pwd` |sed 's,$(name)-,,')
 #VERSION=$(shell date +%Y%m%d)
 VERSION=$(shell grep "#define.*FILE_VERSION" csstidy/csspp_private.h|cut -d'"' -f2)
+RPM_SPECS_DIR=$(shell rpm -E '%_specdir')
+RPM_SOURCES_DIR=$(shell rpm -E '%_sourcedir')
 
 HOSTCC=gcc
 #HOSTCC=$(shell if type gcc-4.1 >/dev/null 2>&1;then echo gcc-4.1;else echo gcc;fi)
@@ -65,28 +67,43 @@ CSSTIDYOBJS= \
 	csstidy/print_css.o \
 	csstidy/important.o \
 
+MANPAGES= \
+	csstidy/csstidy.1 \
+
 .cpp.o:
 	$(CXX) -o $(RELEASE_DIR)/$@ -c $(CFLAGS) $<
 
-.PHONY: clean savets restorets ci pull
+.PHONY: clean savets restorets ci pull csstidy mangz
 
-all: releasedir $(CSSTIDYOBJS)
-	cd $(RELEASE_DIR); $(CXX) $(LDCFLAGS) -o csstidy/csstidy $(CSSTIDYOBJS)
+all: releasedir $(CSSTIDYOBJS) csstidy
+
+csstidy:
+	cd $(RELEASE_DIR); $(CXX) $(LDCFLAGS) -o $(name)/$(name) $(CSSTIDYOBJS)
+
+install: all mangz
+	$(STRIP) $(RELEASE_DIR)/$(name)/$(name)
+	mkdir -p $(bindir) $(mandir)/man1
+	$(CP) $(RELEASE_DIR)/$(name)/$(name) $(bindir)/$(name)
+	$(CP) $(RELEASE_DIR)/$(name)/$(name).1* $(mandir)/man1/
+	-chown root:root $(bindir)/$(name) $(mandir)/man1/$(name).1*
+	chmod 755 $(bindir)/$(name)
+	chmod 644 $(mandir)/man1/$(name).1*
 
 releasedir:
-	mkdir -p $(RELEASE_DIR)/csstidy
+	mkdir -p $(RELEASE_DIR)/$(name)
 
 clean::
-	$(RM) -rf $(RELEASE_DIR)/* $(RELEASE_DIR)
+	$(RM) -rf $(RELEASE_DIR)
  
 distclean: clean
 	#$(MAKE) savets
 
-mangz:
+mangz: releasedir
 	for f in $(MANPAGES); \
 	do \
 	  gzip -9 -f <$$f >$$f.gz; \
 	  touch -r $$f $$f.gz; \
+	  $(CP) $$f.gz $(RELEASE_DIR)/$(name)/; \
 	done
 
 dist: tgz

@@ -29,8 +29,7 @@ Improvements:
     git clone https://github.com/csstidy-c/csstidy.git
     cd csstidy
     make
-    sudo cp release/csstidy/csstidy /usr/local/bin/
-    sudo gzip -9 <csstidy/csstidy.1 >/usr/local/man/man1/csstidy.1.gz
+    sudo make install
 
 ## Usage
 
@@ -72,7 +71,7 @@ To change settings, you have to add "--thesettingyouwanttochange=true or false" 
 
 ### Introduction
 
-CSSTidy is an opensource CSS parser and optimiser. It is available as executeable file (available for Windows, Linux and OSX) which can be controlled per command line and as PHP script (both with almost the same functionality).
+CSSTidy is an opensource CSS parser and optimiser. It is available as executeable file (available for Linux, OSX and more) which can be controlled per command line and as PHP script (both with almost the same functionality).
 In opposite to most other CSS parsers, no regular expressions are used and thus CSSTidy has full CSS2 support and a higher reliability.
 
 Features ("a" stands for all selectors, "margin" stands for all properties):
