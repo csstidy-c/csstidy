@@ -64,7 +64,7 @@ If you want to save the output to a file, use
 If you use the filename "-", CSSTidy reads from stdin.
 To change settings, you have to add "--thesettingyouwanttochange=true or false" after the input file. If "true" is first in the syntax description, this indicates that "true" is the default value (the same applies to false). Example:
 
-    csstidy mycssfile.css --remove_last_;=true myoutputfile.css
+    csstidy mycssfile.css --remove_last_semicolon=true myoutputfile.css
 
 
 ## Original Description
