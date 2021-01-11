@@ -186,7 +186,7 @@ void csstidy::parse_css(string css_input)
 			else
 			{
 				int lastpos = cur_selector.length()-1;
-				if(!( (ctype_space(cur_selector[lastpos]) || is_token(cur_selector,lastpos) && cur_selector[lastpos] == ',') && ctype_space(css_input[i])))
+				if(lastpos == -1 || !( (ctype_space(cur_selector[lastpos]) || is_token(cur_selector,lastpos) && cur_selector[lastpos] == ',') && ctype_space(css_input[i])))
 				{
 					cur_selector += css_input[i];
 				}

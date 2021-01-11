@@ -64,7 +64,7 @@ int csstidy::_seeknocomment(const int key, int move)
 {
     int go = (move > 0) ? 1 : -1;
     for (int i = key + 1; abs(key-i)-1 < abs(move); i += go) {
-        if (i < 0 || i > csstokens.size()) {
+        if (i < 0 || i >= csstokens.size()) {
             return -1;
         }
         if (csstokens[i].type == COMMENT) {

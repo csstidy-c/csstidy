@@ -27,7 +27,7 @@ bool escaped(const string &istring, const int pos)
 // Save replacement for .at()
 char s_at(const string &istring, const int pos)
 {
-	if(pos > (istring.length()-1) && pos < 0)
+	if(pos > (istring.length()-1) || pos < 0)
 	{
 		return 0;
 	}
