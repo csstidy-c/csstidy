@@ -17,7 +17,10 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
  
-#include "csspp_globals.hpp"
+#include <iosfwd>    // for std
+#include <string>    // for string
+#include "trim.hpp"  // for rtrim, ltrim, strip_tags, trim
+
 using namespace std;
 
 const string trim(const string istring)

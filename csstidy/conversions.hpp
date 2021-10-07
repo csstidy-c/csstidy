@@ -20,28 +20,30 @@
 #ifndef HEADER_CSS_CONVERT
 #define HEADER_CSS_CONVERT 
 
+#include <string>  // for string
+
 // Returns the lowercase version of a string
-string strtolower(string istring);
+std::string strtolower(std::string istring);
 // Apparently faster replacement for tolower
 char chartolower(const char c);
 
 // Returns the uppercase version of a string
-string strtoupper(string istring);
+std::string strtoupper(std::string istring);
 char chartoupper(const char c);
 
 // Converts an integer to a hex-string
-string dechex(const int i);
+std::string dechex(const int i);
 
 // Converts a hexadecimal number (string) to a decimal number
-double hexdec(string istring);
+double hexdec(std::string istring);
 
 // Converts float to string
-string f2str(const float f);
+std::string f2str(const float f);
 
 // Converts a string to float
-float str2f(const string istring);
+float str2f(const std::string istring);
 
 // Converts a char to a string
-string char2str(const char c);
+std::string char2str(const char c);
 
 #endif // HEADER_CSS_CONVERT

@@ -16,8 +16,16 @@
  *   You should have received a copy of the GNU Lesser General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
- 
-#include "csspp_globals.hpp"
+
+#include "conversions.hpp"
+#include <ctype.h>   // for tolower
+#include <stdlib.h>  // for atof
+#include <cmath>     // for pow
+#include <sstream>   // for stringstream, basic_ostream, basic_ostream::oper...
+#include <string>    // for string, char_traits
+#include "trim.hpp"  // for trim
+
+using namespace std;
 
 string strtolower(string istring)
 {
@@ -141,7 +149,7 @@ double hexdec(string istring)
 			case '9': num = 9; break;
 			case '0': num = 0; break;
 		}
-		ret += num*pow((double) 16, (double) istring.length()-i-1);
+		ret += num * std::pow((double) 16, (double) istring.length()-i-1);
 	}
 	return ret;
 }

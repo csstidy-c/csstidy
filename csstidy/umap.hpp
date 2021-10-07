@@ -17,6 +17,9 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifndef HEADER_CSS_UMAP
+#define HEADER_CSS_UMAP
+
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -24,13 +27,11 @@
 #include <map>
 #include <algorithm>
 #include <iterator>
-using namespace std;
-
 
 template <class keyT, class valT>
 class umap 
 { 
-	typedef map<keyT,valT> StoreT;
+	typedef std::map<keyT,valT> StoreT;
 	typedef std::vector<typename StoreT::iterator> FifoT;
 	private:
 		FifoT sortv;
@@ -80,7 +81,7 @@ class umap
 		{
 			sortv.clear();
 			content = set.content;
-			for(typename map<keyT,valT>::iterator i = content.begin(); i != content.end(); ++i)
+			for(typename std::map<keyT,valT>::iterator i = content.begin(); i != content.end(); ++i)
 			{
 				sortv.push_back(i);
 			}
@@ -201,3 +202,5 @@ class umap
 			return test;
 		}
 };
+
+#endif  // HEADER_CSS_UMAP

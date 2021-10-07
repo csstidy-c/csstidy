@@ -17,7 +17,21 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "csspp_globals.hpp"
+#include <assert.h>         // for assert
+#include <iosfwd>           // for std
+#include <map>              // for map, _Rb_tree_iterator, operator!=, map<>...
+#include <string>           // for string, allocator, operator+, basic_string
+#include <utility>          // for pair
+#include <vector>           // for vector, vector<>::reverse_iterator
+#include "background.hpp"   // for dissolve_short_bg, merge_bg
+#include "conversions.hpp"  // for strtolower, char2str, strtoupper
+#include "cssopt.hpp"       // for c_font_weight, compress_numbers, cut_color
+#include "csstidy.hpp"      // for csstidy
+#include "datastruct.hpp"   // for Warning, parse_status, is, css_struct
+#include "important.hpp"    // for c_important
+#include "misc.hpp"         // for s_at, ctype_space, escaped, build_value
+#include "trim.hpp"         // for trim
+#include "umap.hpp"         // for umap<>::iterator, umap
 
 using namespace std;
 

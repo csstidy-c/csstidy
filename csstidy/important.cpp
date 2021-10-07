@@ -17,7 +17,12 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "csspp_globals.hpp"
+#include <iosfwd>           // for std
+#include <string>           // for string, operator==, operator+, basic_string
+#include "conversions.hpp"  // for strtolower
+#include "important.hpp"    // for c_important, gvw_important, is_important
+#include "trim.hpp"         // for trim, rtrim
+
 using namespace std;
 
 

@@ -16,32 +16,10 @@
  *   You should have received a copy of the GNU Lesser General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
- 
+
+#ifndef HEADER_CSS_GLOBALS
+#define HEADER_CSS_GLOBALS
+
 #define CSSTIDY_VERSION "1.3"
-#include <cstdlib>
-#include <string> 
-#include <iterator>
-#include <vector>
-#include <assert.h>
-#include <math.h>
-#include <time.h>
-#include <sstream>
-#include <iostream>
-#include <fstream>
-#include <map>
-#include <algorithm>
 
-#include "umap.hpp"
-#include "datastruct.hpp"
-
-#include "trim.hpp"
-#include "conversions.hpp"
-#include "misc.hpp"
-#include "important.hpp"
-#include "file_functions.hpp"
-
-#include "cssopt.hpp"
-#include "csstidy.hpp"
-
-#include "parse_css.hpp"
-#include "background.hpp"
+#endif  // HEADER_CSS_GLOBALS

@@ -20,57 +20,62 @@
 #ifndef HEADER_CSSTIDY
 #define HEADER_CSSTIDY 
 
+#include <map>             // for map
+#include <string>          // for string, basic_string
+#include <vector>          // for vector
+#include "datastruct.hpp"  // for token, css_struct, message_type, token_type
+
 class csstidy 
 { 
 	public: 
-		int                        properties,selectors,input_size,output_size;
-		string                     charset,namesp, css_level;
-		vector<string>             import, csstemplate;
-		map<int, vector<message> > logs;
-		map<string, int>           settings;
+		int         properties,selectors,input_size,output_size;
+		std::string charset,namesp, css_level;
+		std::vector<std::string>             import, csstemplate;
+		std::map<int, std::vector<message> > logs;
+		std::map<std::string, int>           settings;
 	
 	private:
 		css_struct    css;
-		vector<token> csstokens;
-		string        tokens, cur_selector, cur_at, cur_property, cur_function, cur_sub_value, cur_value, cur_string;
+		std::vector<token> csstokens;
+		std::string        tokens, cur_selector, cur_at, cur_property, cur_function, cur_sub_value, cur_value, cur_string;
 		int           line;
-		vector<int>   sel_separate;
+		std::vector<int>   sel_separate;
 
-		void add_token(const token_type ttype, const string data, const bool force = false);
+		void add_token(const token_type ttype, const std::string data, const bool force = false);
 		void _convert_raw_css();
 		
 		// Add a message to the message log
-		void log(const string msg, const message_type type, int iline = 0);
+		void log(const std::string msg, const message_type type, int iline = 0);
 		
 		int _seeknocomment(const int key, const int move);
-		string _htmlsp(const string istring, const bool plain);
-		string optimise_subvalue(string subvalue, const string property, const string function);
+		std::string _htmlsp(const std::string istring, const bool plain);
+		std::string optimise_subvalue(std::string subvalue, const std::string property, const std::string function);
 		void explode_selectors();
 		
 		// Parses unicode notations
-		string unicode(string& istring,int& i);
+		std::string unicode(std::string& istring,int& i);
 		
 		// Checks if the chat in istring at i is a token
-		bool is_token(string& istring,const int i);
+		bool is_token(std::string& istring,const int i);
 						
 	public:
 	    csstidy();
 	    	
 		// Adds a property-value pair to an existing CSS structure
-		void add(const string& media, const string& selector, const string& property, const string& value);
-	    void copy(const string media, const string selector, const string media_new, const string selector_new);
+		void add(const std::string& media, const std::string& selector, const std::string& property, const std::string& value);
+	    void copy(const std::string media, const std::string selector, const std::string media_new, const std::string selector_new);
 	
 		// Prints CSS code
-		void print_css(string filename = "");
+		void print_css(std::string filename = "");
 		
 		// Parse a piece of CSS code
-		void parse_css(string css_input);
+		void parse_css(std::string css_input);
 		
 		/* Merges properties like margin */
-		void merge_4value_shorthands(string media, string selector);
+		void merge_4value_shorthands(std::string media, std::string selector);
 		
 		/* Dissolves properties like padding:10px 10px 10px to padding-top:10px;padding-bottom:10px;... */
-		map<string,string> dissolve_4value_shorthands(string property, string value);
+		std::map<std::string,std::string> dissolve_4value_shorthands(std::string property, std::string value);
 };
 	    
 #endif // HEADER_CSSTIDY

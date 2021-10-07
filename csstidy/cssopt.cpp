@@ -17,7 +17,22 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
  
-#include "csspp_globals.hpp"
+#include <math.h>              // for abs
+#include <stdlib.h>            // for atoi, abs
+#include <iosfwd>              // for std
+#include <map>                 // for _Rb_tree_iterator, map
+#include <memory>              // for allocator, allocator_traits<>::value_type
+#include <string>              // for string, operator==, basic_string, oper...
+#include <utility>             // for pair
+#include <vector>              // for vector
+#include "conversions.hpp"     // for str2f, strtolower, f2str, dechex, strt...
+#include "cssopt.hpp"          // for c_font_weight, compress_numbers, cut_c...
+#include "datastruct.hpp"      // for sstore
+#include "important.hpp"       // for gvw_important, is_important
+#include "misc.hpp"            // for explode, ctype_digit, in_str_array, round
+#include "trim.hpp"            // for trim
+#include "umap.hpp"            // for umap<>::iterator, umap
+
 using namespace std;
 
 extern vector<string> unit_values,color_values;

@@ -18,15 +18,17 @@
 */
  
 #ifndef HEADER_CSS_IMPORTANT
-#define HEADER_CSS_IMPORTANT 
+#define HEADER_CSS_IMPORTANT
+
+#include <string>  // for string
 
 // Checks if value is important
-bool is_important(string value);
+bool is_important(std::string value);
 
 // Get value without !important
-string gvw_important(string value);
+std::string gvw_important(std::string value);
 
 // Compresses !important (for example if someone uses "! important")
-string c_important(string value);
+std::string c_important(std::string value);
 
 #endif //HEADER_CSS_IMPORTANT 
