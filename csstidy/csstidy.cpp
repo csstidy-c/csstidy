@@ -160,7 +160,7 @@ string csstidy::unicode(string& istring,int& i)
 		i++;
 	}
 
-	if(hexdec(add) > 47 && hexdec(add) < 58 || hexdec(add) > 64 && hexdec(add) < 91 || hexdec(add) > 96 && hexdec(add) < 123)
+	if ((hexdec(add) > 47 && hexdec(add) < 58) || (hexdec(add) > 64 && hexdec(add) < 91) || (hexdec(add) > 96 && hexdec(add) < 123))
 	{
 		string msg = "Replaced unicode notation: Changed \\" + rtrim(add) + " to ";
 		add = static_cast<int>(hexdec(add));
@@ -173,7 +173,7 @@ string csstidy::unicode(string& istring,int& i)
 		add = trim("\\" + add);
 	}
 
-	if(ctype_xdigit(istring[i+1]) && ctype_space(istring[i]) && !replaced || !ctype_space(istring[i]))
+	if ((ctype_xdigit(istring[i+1]) && ctype_space(istring[i]) && !replaced) || !ctype_space(istring[i]))
 	{
 		i--;
 	}

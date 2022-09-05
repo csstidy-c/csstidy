@@ -109,8 +109,8 @@ string compress_numbers(string subvalue, string property, string function)
 		
 	for (int i = 0; i < temp.size(); ++i)
 	{
-		if(!(temp[i].length() > 0 && (ctype_digit(temp[i][0])) ||
-		     temp[i].length() > 1 && (ctype_digit(temp[i][1])) && (temp[i][0] == '+' || temp[i][0] == '-' )))
+		if(!((temp[i].length() > 0 && (ctype_digit(temp[i][0]))) ||
+		     (temp[i].length() > 1 && (ctype_digit(temp[i][1])) && (temp[i][0] == '+' || temp[i][0] == '-' ))))
 		{
 			// As temp[i] does not begin with a digit
 			// (optionally preceded by a plus or minus sign), make no changes to it.
@@ -189,7 +189,7 @@ string cut_color(string color)
 			{
 				color_tmp[i] = f2str(round(255 * atoi(color_tmp[i].c_str())/100,0));
 			}
-			if(atoi(color_tmp[i].c_str()) > 255) color_tmp[i] = 255;
+			if(atoi(color_tmp[i].c_str()) > 255) color_tmp[i] = -1; // = 255
 		}
 		
 		color = "#";

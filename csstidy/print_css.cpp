@@ -90,6 +90,7 @@ int csstidy::_seeknocomment(const int key, int move)
         }
         return csstokens[i].type;
     }
+    return 0;
 }
 
 void csstidy::print_css(string filename)

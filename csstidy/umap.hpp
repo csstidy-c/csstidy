@@ -119,10 +119,12 @@ class umap
 
 		valT& at(int index)
 		{
+			static std::basic_string<char> emptyVal = valT();
 			if(index < size() && index >= 0)
 			{
 				return sortv[index]->second;
 			}
+			return emptyVal;
 		} 
 		
 		// Iterator

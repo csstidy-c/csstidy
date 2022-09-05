@@ -111,7 +111,7 @@ void csstidy::parse_css(string css_input)
 			{
 				// Skip excess whitespace
 				int lastpos = cur_at.length()-1;
-				if(lastpos == -1 || !( (ctype_space(cur_at[lastpos]) || is_token(cur_at,lastpos) && cur_at[lastpos] == ',') && ctype_space(css_input[i])))
+				if(lastpos == -1 || !( (ctype_space(cur_at[lastpos]) || (is_token(cur_at,lastpos) && cur_at[lastpos] == ',')) && ctype_space(css_input[i])))
 				{
 					cur_at += css_input[i];
 				}
@@ -200,7 +200,7 @@ void csstidy::parse_css(string css_input)
 			else
 			{
 				int lastpos = cur_selector.length()-1;
-				if(lastpos == -1 || !( (ctype_space(cur_selector[lastpos]) || is_token(cur_selector,lastpos) && cur_selector[lastpos] == ',') && ctype_space(css_input[i])))
+				if(lastpos == -1 || !( (ctype_space(cur_selector[lastpos]) || (is_token(cur_selector,lastpos) && cur_selector[lastpos] == ',')) && ctype_space(css_input[i])))
 				{
 					cur_selector += css_input[i];
 				}
@@ -211,7 +211,7 @@ void csstidy::parse_css(string css_input)
 			case ip:
 			if(is_token(css_input,i))
 			{
-				if(css_input[i] == ':' || css_input[i] == '=' && cur_property != "") // IE really accepts =, so csstidy will fix those mistakes
+				if(css_input[i] == ':' || (css_input[i] == '=' && cur_property != "")) // IE really accepts =, so csstidy will fix those mistakes
 				{
 					status = iv;
 					bool valid = !settings["discard_invalid_properties"] ||
@@ -271,7 +271,7 @@ void csstidy::parse_css(string css_input)
 
 			/* Case in-value */
 			case iv:
-			pn = ((css_input[i] == '\n' || css_input[i] == '\r') && property_is_next(css_input,i+1) || i == str_size-1);
+			pn = (((css_input[i] == '\n' || css_input[i] == '\r') && property_is_next(css_input,i+1)) || i == str_size-1);
 			if(pn)
 			{
 				log("Added semicolon to the end of declaration",Warning);

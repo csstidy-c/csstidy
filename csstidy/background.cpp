@@ -157,7 +157,7 @@ vector<string> explode_ws(char sep,string istring)
 				++num;
 				output.push_back("");
 			}
-			else if(istring[i] == '"' || istring[i] == '\'' || istring[i] == '(' && !escaped(istring,i))
+			else if(istring[i] == '"' || istring[i] == '\'' || (istring[i] == '(' && !escaped(istring,i)))
 			{
 				status = 2;
 				to = (istring[i] == '(') ? ')' : istring[i];
