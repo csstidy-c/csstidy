@@ -18,22 +18,25 @@
 */
  
 #ifndef HEADER_CSS_OPT
-#define HEADER_CSS_OPT 
+#define HEADER_CSS_OPT
+
+#include <string>          // for string
+#include "datastruct.hpp"  // for sstore
 
 // Color compression function. Converts all rgb() values to #-values and uses the short-form if possible. Also replaces color names and codes.
-string cut_color(string color);
+std::string cut_color(std::string color);
 
 // Compresses shorthand values. Example: margin:1px 1px 1px 1px -> margin:1px
-string shorthand(string value);
+std::string shorthand(std::string value);
 
 // Compresses numbers (ie. 1.0 -> 1 or 1.100 -> 1.1 
-string compress_numbers(string subvalue, string property = "", string function = "");
+std::string compress_numbers(std::string subvalue, std::string property = "", std::string function = "");
 
 // Checks if the next word in a string from pos is a CSS property
-bool property_is_next(string istring, const int pos);
+bool property_is_next(std::string istring, const int pos);
 
 // Compress font-weight
-int c_font_weight(string& value);
+int c_font_weight(std::string& value);
 
 // Merges selectors which have the same properties
 void merge_selectors(sstore& input);

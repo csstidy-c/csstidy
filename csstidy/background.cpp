@@ -17,7 +17,20 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
  
-#include "csspp_globals.hpp"
+#include <ctype.h>             // for isdigit
+#include <algorithm>           // for max
+#include <iosfwd>              // for std
+#include <map>                 // for map, map<>::mapped_type, _Rb_tree_iter...
+#include <memory>              // for allocator, allocator_traits<>::value_type
+#include <string>              // for string, basic_string, operator<, opera...
+#include <utility>             // for pair
+#include <vector>              // for vector
+#include "background.hpp"      // for dissolve_short_bg, explode_ws, merge_bg
+#include "important.hpp"       // for gvw_important, is_important
+#include "misc.hpp"            // for in_str_array, escaped
+#include "trim.hpp"            // for trim
+#include "umap.hpp"            // for umap
+
 using namespace std;
 extern map<string,string> background_prop_default;
 

@@ -17,7 +17,24 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "csspp_globals.hpp"
+#include <cstdlib>             // for abs
+#include <ctime>               // for asctime, localtime, time, time_t
+#include <iostream>            // for operator<<
+#include <map>                 // for map, _Rb_tree_iterator, operator!=
+#include <memory>              // for allocator, allocator_traits<>::value_type
+#include <string>              // for operator<<, string, char_traits, basic...
+#include <sstream>             // for stringstream
+#include <fstream>             // for ofsream
+#include <utility>             // for pair
+#include <vector>              // for vector
+#include "conversions.hpp"     // for strtolower, strtoupper
+#include "csspp_globals.hpp"   // for CSSTIDY_VERSION
+#include "csstidy.hpp"         // for csstidy
+#include "datastruct.hpp"      // for token, css_struct, AT_END, COMMENT
+#include "misc.hpp"            // for round, str_replace, htmlspecialchars
+#include "trim.hpp"            // for rtrim, strip_tags, trim
+#include "umap.hpp"            // for umap<>::iterator, umap
+
 
 using namespace std;
 
@@ -63,7 +80,7 @@ void csstidy::_convert_raw_css()
 int csstidy::_seeknocomment(const int key, int move)
 {
     int go = (move > 0) ? 1 : -1;
-    for (int i = key + 1; abs(key-i)-1 < abs(move); i += go) {
+    for (int i = key + 1; std::abs(key-i)-1 < std::abs(move); i += go) {
         if (i < 0 || i >= csstokens.size()) {
             return -1;
         }

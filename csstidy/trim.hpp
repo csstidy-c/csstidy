@@ -20,17 +20,19 @@
 #ifndef HEADER_CSS_TRIM
 #define HEADER_CSS_TRIM 
 
+#include <string>    // for string
+
 // Removes whitespace at the end and beginning of a string
-const string trim(const string istring);
+const std::string trim(const std::string istring);
 
 // Removes whitespace at the beginning of a string
-const string ltrim(const string istring);
+const std::string ltrim(const std::string istring);
 
 // Removes whitespace at the end of a string
-const string rtrim(const string istring);
-const string rtrim(const string istring, const string chars);
+const std::string rtrim(const std::string istring);
+const std::string rtrim(const std::string istring, const std::string chars);
 
 // Removes HTML tags
-string strip_tags(string istring);
+std::string strip_tags(std::string istring);
 
 #endif // HEADER_CSS_TRIM

@@ -20,8 +20,10 @@
 #ifndef HEADER_CSS_FILE
 #define HEADER_CSS_FILE 
 
+#include <string>
+
 // Get contents of a file
-string file_get_contents(const string filename);
+std::string file_get_contents(const std::string filename);
 
 // Checks if a file exists
 bool file_exists(const char *filename);

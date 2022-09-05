@@ -20,34 +20,37 @@
 #ifndef HEADER_CSS_MISC
 #define HEADER_CSS_MISC 
 
+#include <string>  // for string
+#include <vector>  // for vector
+
 // Checks if a charcter is escaped
-bool escaped(const string &istring, int pos);
+bool escaped(const std::string &istring, int pos);
 
 // Returns a char of a string at pos but checks the string-length before
-char s_at(const string &istring, int pos);
+char s_at(const std::string &istring, int pos);
 
 // Splits a string at e
-vector<string> explode(const string e, string s, const bool check = false);
+std::vector<std::string> explode(const std::string e, std::string s, const bool check = false);
 
 // Implodes a string at e
-std::string implode(const string e, const vector<string> s);
+std::string implode(const std::string e, const std::vector<std::string> s);
 
 // Builds a compact value string, inserting spaces only where necessary
-std::string build_value(const vector<string> subvalues);
+std::string build_value(const std::vector<std::string> subvalues);
 
 // Replaces <find> with <replace> in <str>
-string str_replace(const string find, const string replace, string str);
+std::string str_replace(const std::string find, const std::string replace, std::string str);
 
 // Replaces all values of <find> with <replace> in <str>
-string str_replace(const vector<string>& find, const string replace, string str);
+std::string str_replace(const std::vector<std::string>& find, const std::string replace, std::string str);
 
 // Checks if a string exists in a string-array
 bool in_char_arr(const char* haystack, const char needle);
-bool in_str_array(const string& haystack, const char needle);
-bool in_str_array(const vector<string>& haystack, const string needle);
+bool in_str_array(const std::string& haystack, const char needle);
+bool in_str_array(const std::vector<std::string>& haystack, const std::string needle);
 
 // Replaces certain chars with their entities
-string htmlspecialchars(string istring, int quotes = 0);
+std::string htmlspecialchars(std::string istring, int quotes = 0);
 
 // Rounds a float value
 float round(const float &number, const int num_digits);
@@ -62,9 +65,9 @@ bool ctype_xdigit(char c);
 bool ctype_alpha(char c);
 
 /* Unserialise string arrays */
-vector<string> unserialise_sa(const string istring);
+std::vector<std::string> unserialise_sa(const std::string istring);
 
 /* Serialise a string */
-string serialise_sa(const string istring);
+std::string serialise_sa(const std::string istring);
 
 #endif // HEADER_CSS_MISC

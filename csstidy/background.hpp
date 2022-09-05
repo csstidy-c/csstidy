@@ -20,12 +20,17 @@
 #ifndef HEADER_CSS_BACKGROUND
 #define HEADER_CSS_BACKGROUND 
 
+#include <map>     // for map
+#include <string>  // for string
+#include <vector>  // for vector
+template <class keyT, class valT> class umap;
+
 // Dissolves the background property
-map<string,string> dissolve_short_bg(const string istring);
+std::map<std::string,std::string> dissolve_short_bg(const std::string istring);
 
 // Same as explode, but not within a string
-vector<string> explode_ws(char sep,string istring);
+std::vector<std::string> explode_ws(char sep, std::string istring);
 
-void merge_bg(umap<string,string>& css_input);
+void merge_bg(umap<std::string,std::string>& css_input);
 
 #endif // HEADER_CSS_BACKGROUND

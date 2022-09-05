@@ -17,13 +17,15 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
  
-using namespace std;
-#ifndef HEADER_CSS_STRUCT 
-#define HEADER_CSS_STRUCT 
+#ifndef HEADER_CSS_STRUCT
+#define HEADER_CSS_STRUCT
 
-typedef umap<string, string>   pstore;
-typedef umap<string, pstore >  sstore;
-typedef umap<string, sstore>   css_struct;
+#include <string>  // for string
+#include "umap.hpp"
+
+typedef umap<std::string, std::string> pstore;
+typedef umap<std::string, pstore>      sstore;
+typedef umap<std::string, sstore>      css_struct;
 
 enum parse_status
 {
@@ -43,12 +45,12 @@ enum token_type
 struct token
 {
 	token_type type;
-	string data;
+	std::string data;
 };
 
 struct message
 {
-	string m;
+	std::string m;
 	message_type t;
 };
 

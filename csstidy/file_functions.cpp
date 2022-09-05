@@ -17,7 +17,11 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "csspp_globals.hpp"
+
+#include "file_functions.hpp"
+#include <string>
+#include <fstream>
+
 using namespace std;
 
 string file_get_contents(const string filename)

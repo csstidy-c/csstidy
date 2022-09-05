@@ -16,8 +16,17 @@
  *   You should have received a copy of the GNU Lesser General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <cstring> 
-#include "csspp_globals.hpp"
+
+#include "misc.hpp"
+#include <cmath>
+#include <cstring>             // for strchr, strlen, NULL
+#include <iosfwd>              // for std
+#include <memory>              // for allocator_traits<>::value_type
+#include <string>              // for string, basic_string, allocator, opera...
+#include <vector>              // for vector
+#include "conversions.hpp"     // for chartolower, f2str, str2f
+
+using namespace std;
 
 bool escaped(const string &istring, const int pos) 
 {
@@ -94,7 +103,7 @@ string build_value(const vector<string> subvalues)
 
 float round(const float &number, const int num_digits)
 {
-    float doComplete5i, doComplete5(number * powf(10.0f, (float) (num_digits + 1)));
+    float doComplete5i, doComplete5(number * std::pow(10.0f, (float) (num_digits + 1)));
     
     if(number < 0.0f)
         doComplete5 -= 5.0f;
@@ -102,9 +111,9 @@ float round(const float &number, const int num_digits)
         doComplete5 += 5.0f;
     
     doComplete5 /= 10.0f;
-    modff(doComplete5, &doComplete5i);
+    std::modf(doComplete5, &doComplete5i);
     
-    return doComplete5i / powf(10.0f, (float) num_digits);
+    return doComplete5i / std::pow(10.0f, (float) num_digits);
 }
 
 

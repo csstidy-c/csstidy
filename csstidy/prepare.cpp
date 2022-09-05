@@ -17,7 +17,15 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "csspp_globals.hpp"
+#include <fstream>         // for std
+#include <map>             // for map, map<>::mapped_type
+#include <string>          // for string, operator<, basic_string
+#include <sstream>
+#include <vector>          // for vector
+#include "datastruct.hpp"  // for parse_status, at, iv, is
+
+
+using namespace std;
 
 map<string,bool> settings;
 map< string, vector<string> > shorthands;

@@ -17,7 +17,23 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
  
-#include "csspp_globals.hpp"
+#include "csstidy.hpp"
+#include <fstream>          // for std
+#include <map>              // for map, map<>::mapped_type, _Rb_tree_iterator
+#include <memory>           // for allocator_traits<>::value_type
+#include <string>           // for string, basic_string, allocator, operator+
+#include <utility>          // for pair
+#include <vector>           // for vector
+#include "conversions.hpp"  // for hexdec
+#include "cssopt.hpp"       // for shorthand
+#include "datastruct.hpp"   // for token, css_struct, message, COMMENT, Info...
+#include "important.hpp"    // for is_important, gvw_important
+#include "misc.hpp"         // for ctype_space, ctype_xdigit, in_str_array
+#include "trim.hpp"         // for trim, rtrim
+#include "umap.hpp"         // for umap, umap<>::iterator
+
+using namespace std;
+
 extern map< string, vector<string> > shorthands;
 
 csstidy::csstidy()
